@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        docker { image 'python:3.10' }
+    }
     stages {
         stage('Build') {
             steps {
@@ -8,9 +10,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Instala pytest en el contenedor/servidor donde corre Jenkins
                 sh 'pip install pytest'
-                // Ejecuta las pruebas
                 sh 'pytest --maxfail=1 --disable-warnings -q'
             }
         }
