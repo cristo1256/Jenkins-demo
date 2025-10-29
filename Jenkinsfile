@@ -3,17 +3,20 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Compilando el proyecto...'
+                echo 'Preparando entorno...'
             }
         }
         stage('Test') {
             steps {
-                echo 'Ejecutando pruebas...'
+                // Instala pytest en el contenedor/servidor donde corre Jenkins
+                sh 'pip install pytest'
+                // Ejecuta las pruebas
+                sh 'pytest --maxfail=1 --disable-warnings -q'
             }
         }
         stage('Deploy') {
             steps {
-                echo 'Desplegando aplicación...'
+                echo 'Desplegando aplicación (simulado)...'
             }
         }
     }
